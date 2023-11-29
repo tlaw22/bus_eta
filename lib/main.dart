@@ -4,7 +4,7 @@ import 'constants.dart';
 
 void main() {
   runApp(const MyApp());
-  testWindowFunctions();
+
 }
 
 Future testWindowFunctions() async {
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.tealAccent,
       appBar: AppBar(
           backgroundColor: Colors.blueAccent,
           title: const Text(
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Text("Enter stop times using 4 digits",
                     style: TextStyle(
                         fontSize: 28,
-                        color: Colors.white,
+                        color: Colors.blueAccent,
                         fontWeight: FontWeight.w800)),
               ],
             ),
