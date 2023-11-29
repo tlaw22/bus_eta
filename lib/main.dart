@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: currentTimeController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Military Time IE: 1PM = 13:00',
+                  hintText: 'Military Time IE: 1PM = 13:00 / 5AM = 05:00',
                   labelText: 'Enter the stop time (HH:MM)',
                   labelStyle: TextStyle(
                       fontWeight: FontWeight.w800, color: Colors.black45),
