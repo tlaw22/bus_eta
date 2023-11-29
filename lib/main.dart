@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
-import 'constants.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 void main() {
   runApp(const MyApp());
-
 }
 
 Future testWindowFunctions() async {
@@ -103,10 +103,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Url Launcher here
+    final Uri _url = Uri.parse('https://flutter.dev');
+    Future<void> _launchUrl() async {
+      if (!await launchUrl(_url)) {
+        throw Exception('Could not launch $_url');
+      }
+    }
+    // End Url Launcher
     return Scaffold(
-      backgroundColor: Colors.tealAccent,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.blueGrey,
           title: const Text(
             "ETA to Stop",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
@@ -136,11 +145,13 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("lib/assets/images/stop-sign.png", height: 100.0),
-                const Text("Enter stop times using 4 digits",
-                    style: TextStyle(
-                        fontSize: 28,
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.w800)),
+                Expanded(
+                  child: const Text("Enter stop times using 4 digits",
+                      style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w800)),
+                ),
               ],
             ),
 // Create a text field for the current time
@@ -167,7 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
               style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
               controller: delayController,
               decoration: const InputDecoration(
-
                 border: OutlineInputBorder(),
                 labelText: 'Enter the delay in minutes',
                 labelStyle: TextStyle(
@@ -225,6 +235,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         builder: (context) => buildBottomSheet(context),
                       );
                     }),
+                const SizedBox(width: 10),
+// insert iconbutton
+              GestureDetector(child: Image.asset("lib/assets/images/github.jpg", height: 25,),
+              onTap: _launchUrl),
               ],
             ),
           ],
@@ -234,16 +248,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildBottomSheet(BuildContext contest) {
-    return Container(
 
-      height: 700,
-      padding: EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-      child: Row(children: [
-        Image.asset("lib/assets/images/time-table2.png"),
-      ]),
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.amber,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))
+      ),
+      child: Container(
+
+        height: 700,
+        padding: EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+          Image.asset("lib/assets/images/time-table2.png"),
+        ]),
+      ),
     );
   }
 }
