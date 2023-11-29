@@ -2,15 +2,6 @@
 
 This app gives you an ETA when you enter a stop time and a delay
 
-## Getting Started
+## Demo App
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![demo](https://github.com/tlaw22/bus_eta/assets/108081811/0d15a97b-ce3b-49ae-9dc1-47411de9f0e8)
