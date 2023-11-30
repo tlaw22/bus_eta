@@ -18,7 +18,7 @@ Future testWindowFunctions() async {
   Size size = await DesktopWindow.getWindowSize();
   print(size);
   await DesktopWindow.setWindowSize(const Size(700, 850));
-  bool isFullScreen = await DesktopWindow.getFullScreen();
+
 }
 
 class MyApp extends StatelessWidget {
