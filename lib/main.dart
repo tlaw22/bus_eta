@@ -69,10 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
 // Add the delay to the current time to get the ETA
       TimeOfDay eta = current.replacing(
           hour: (current.hour +
-                  late.inHours +
-                  (current.minute + late.inMinutes) ~/ 60) %
+              late.inHours +
+              (current.minute + late.inMinutes) ~/ 60) %
               24,
           minute: (current.minute + late.inMinutes) % 60);
+
+      if (late.inMinutes > 60 && late.inMinutes < 120) {
+        eta = eta.replacing(hour: current.hour + 1);
+      }
 
 // Format the ETA as a string
       String etaString = eta.format(context);
