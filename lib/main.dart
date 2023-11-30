@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
+
 }
 
 Future testWindowFunctions() async {
@@ -105,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     // Url Launcher here
-    final Uri _url = Uri.parse('https://flutter.dev');
+    final Uri _url = Uri.parse('https://github.com/tlaw22/bus_eta');
     Future<void> _launchUrl() async {
       if (!await launchUrl(_url)) {
         throw Exception('Could not launch $_url');
@@ -135,120 +140,122 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.amberAccent,
                     borderRadius: BorderRadius.circular(12)),
                 child: Image.asset("lib/assets/images/logo.png")),
+
           ]),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("lib/assets/images/stop-sign.png", height: 100.0),
-                Expanded(
-                  child: const Text("Enter stop times using 4 digits",
-                      style: TextStyle(
-                          fontSize: 28,
-                          color: Colors.blueAccent,
-                          fontWeight: FontWeight.w800)),
-                ),
-              ],
-            ),
-// Create a text field for the current time
-            const SizedBox(
-              height: 45,
-            ),
-            TextField(
-              maxLength: 5,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
-              controller: currentTimeController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Military Time IE: 1PM = 13:00 / 5AM = 05:00',
-                  labelText: 'Enter the stop time (HH:MM)',
-                  labelStyle: TextStyle(
-                      fontWeight: FontWeight.w800, color: Colors.black45),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)))),
-            ),
-            const SizedBox(height: 3),
-// Create a text field for the delay
-            TextField(
-              maxLength: 3,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
-              controller: delayController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter the delay in minutes',
-                labelStyle: TextStyle(
-                    fontWeight: FontWeight.w800, color: Colors.black45),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      body: Container(padding: EdgeInsets.all(10.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("lib/assets/images/stop-sign.png", height: 100.0),
+                  Expanded(
+                    child: const Text("Enter stop times using 4 digits",
+                        style: TextStyle(
+                            fontSize: 28,
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.w800)),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 10),
-// Create a text field for the ETA
-            TextField(
-              style: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 32,
-                  backgroundColor: Colors.black45),
-              controller: etaController,
-              decoration: const InputDecoration(
+        // Create a text field for the current time
+              const SizedBox(
+                height: 45,
+              ),
+              TextField(
+                maxLength: 5,
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
+                controller: currentTimeController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Military Time IE: 1PM = 13:00 / 5AM = 05:00',
+                    labelText: 'Enter the stop time (HH:MM)',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w800, color: Colors.black45),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)))),
+              ),
+              const SizedBox(height: 3),
+        // Create a text field for the delay
+              TextField(
+                maxLength: 3,
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
+                controller: delayController,
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Your ETA is:',
+                  labelText: 'Enter the delay in minutes',
                   labelStyle: TextStyle(
                       fontWeight: FontWeight.w800, color: Colors.black45),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)))),
-              readOnly: true,
-            ),
-            const SizedBox(height: 10),
-// Create a row of buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-// Create a button to calculate the ETA
-                ElevatedButton(
-                  onPressed: calculateETA,
-                  child: const Text('Calculate'),
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 ),
-                const SizedBox(width: 10),
-// Create a button to clear the form
-                ElevatedButton(
-                  onPressed: clearForm,
-                  child: const Text('Clear'),
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-                ),
-                const SizedBox(width: 10),
-// Create a button to clear the form
-                ElevatedButton(
-                    child: const Text('Time Chart'),
+              ),
+              const SizedBox(height: 10),
+        // Create a text field for the ETA
+              TextField(
+                style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 32,
+                    backgroundColor: Colors.black45),
+                controller: etaController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Your ETA is:',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w800, color: Colors.black45),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)))),
+                readOnly: true,
+              ),
+              const SizedBox(height: 10),
+        // Create a row of buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+        // Create a button to calculate the ETA
+                  ElevatedButton(
+                    onPressed: calculateETA,
+                    child: const Text('Calculate'),
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => buildBottomSheet(context),
-                      );
-                    }),
-                const SizedBox(width: 10),
-// insert iconbutton
-              GestureDetector(child: Image.asset("lib/assets/images/github.jpg", height: 25,),
-              onTap: _launchUrl),
-              ],
-            ),
-          ],
+                  ),
+                  const SizedBox(width: 10),
+        // Create a button to clear the form
+                  ElevatedButton(
+                    onPressed: clearForm,
+                    child: const Text('Clear'),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                  ),
+                  const SizedBox(width: 10),
+        // Create a button to clear the form
+                  ElevatedButton(
+                      child: const Text('Time Chart'),
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => buildBottomSheet(context),
+                        );
+                      }),
+                  const SizedBox(width: 10),
+        // insert iconbutton
+                GestureDetector(child: Image.asset("lib/assets/images/github.jpg", height: 25,),
+                onTap: _launchUrl),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
+// Begin bottomSheet Class
   Widget buildBottomSheet(BuildContext contest) {
-
     return Container(
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -256,7 +263,6 @@ class _MyHomePageState extends State<MyHomePage> {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))
       ),
       child: Container(
-
         height: 700,
         padding: EdgeInsets.all(10),
         decoration: const BoxDecoration(
