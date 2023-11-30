@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 
 void main() {
@@ -15,16 +17,8 @@ void main() {
 Future testWindowFunctions() async {
   Size size = await DesktopWindow.getWindowSize();
   print(size);
-  await DesktopWindow.setWindowSize(const Size(700, 800));
-
-  await DesktopWindow.setMinWindowSize(const Size(700, 800));
-  await DesktopWindow.setMaxWindowSize(const Size(700, 800));
-
-  await DesktopWindow.resetMaxWindowSize();
-  await DesktopWindow.toggleFullScreen();
+  await DesktopWindow.setWindowSize(const Size(700, 850));
   bool isFullScreen = await DesktopWindow.getFullScreen();
-  await DesktopWindow.setFullScreen(true);
-  await DesktopWindow.setFullScreen(false);
 }
 
 class MyApp extends StatelessWidget {
@@ -155,19 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Expanded(
                     child: const Text("Enter stop times using 4 digits",
                         style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 22,
                             color: Colors.blueAccent,
-                            fontWeight: FontWeight.w800)),
+                            fontWeight: FontWeight.w900)),
                   ),
                 ],
               ),
         // Create a text field for the current time
               const SizedBox(
-                height: 45,
+                height: 25,
               ),
               TextField(
                 maxLength: 5,
-                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                 controller: currentTimeController,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -182,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Create a text field for the delay
               TextField(
                 maxLength: 3,
-                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 22),
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                 controller: delayController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -198,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextField(
                 style: const TextStyle(
                     fontWeight: FontWeight.w800,
-                    fontSize: 32,
+                    fontSize: 18,
                     backgroundColor: Colors.black45),
                 controller: etaController,
                 decoration: const InputDecoration(
@@ -225,7 +219,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(width: 10),
         // Create a button to clear the form
                   ElevatedButton(
-                    onPressed: clearForm,
+                    onPressed: () {
+                      clearForm();
+                      Clipboard.setData(
+                          ClipboardData(text: etaController.text.toString()));
+                      AnimatedSnackBar.rectangle(
+                        'Success',
+                        'The form has been cleared!',
+                        type: AnimatedSnackBarType.success,
+                        brightness: Brightness.dark,
+                      ).show(context);
+                    },
                     child: const Text('Clear'),
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.amber),
