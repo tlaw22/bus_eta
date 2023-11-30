@@ -9,4 +9,5 @@ This app gives you an ETA when you enter a stop time and a delay
 [Test the Demo Web App](http://www.pascodash.com/apps/eta/)
 
   
-![demo](https://github.com/tlaw22/bus_eta/assets/108081811/0d15a97b-ce3b-49ae-9dc1-47411de9f0e8)
+
+![movie-gif](https://github.com/tlaw22/bus_eta/assets/108081811/2d43f808-c2d3-4db2-874c-54ad5077ec4f)
