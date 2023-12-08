@@ -71,8 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
               24,
           minute: (current.minute + late.inMinutes) % 60);
 
-      if (late.inMinutes >= 60 && late.inMinutes < 120) {
-        eta = eta.replacing(hour: current.hour + 1);
+      if (late.inMinutes >= 60) {
+        if (late.inMinutes >= 120) {
+          eta = eta.replacing(hour: current.hour + 2);
+        } else {
+          eta = eta.replacing(hour: current.hour + 1);
+        }
+      } else {
+        // Handle delays less than 60 minutes
       }
 
 // Format the ETA as a string
@@ -182,6 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                 controller: delayController,
                 decoration: const InputDecoration(
+                  hintText: 'Enter 1 to 120 minutes late',
                   border: OutlineInputBorder(),
                   labelText: 'Enter the delay in minutes',
                   labelStyle: TextStyle(
@@ -228,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ClipboardData(text: etaController.text.toString()));
                       AnimatedSnackBar.rectangle(
                         'Success',
-                        'The form has been cleared!',
+                        'Form Cleared! This form is accurate up to 120 minutes late.',
                         type: AnimatedSnackBarType.success,
                         brightness: Brightness.dark,
                       ).show(context);
